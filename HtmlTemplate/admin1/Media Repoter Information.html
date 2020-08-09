@@ -1,0 +1,124 @@
+{% extends 'admin1/layout/Master.html' %}
+{% load static %}
+{% block title %}Admin Profile page{% endblock %}
+{% block main %}
+<div class="content-wrapper">
+  <div class="content-header">
+    <!-- Content Header (Page header) -->
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">News Reporter</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin1">Home</a></li>
+            <li class="breadcrumb-item active">Media Repoter Information</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <!-- Main content  -->
+  <section class="content" >
+    <div class="container-fluid">
+      <!-- Small boxes (Stat box) --> 
+      <a class="btn btn-primary" href="#" role="button" onclick="asd(1)">Add Repoter</a>
+      <a class="btn btn-primary" href="#" role="button" onclick="asd(0)" ><i id="h1" class="fa fa-chevron-up" aria-hidden="true"></i></a>
+      <div class="container">
+        <form action="/admin1/register" method="POST" id="asd" autocomplete="off" enctype="multipart/form-data">
+          <fieldset>
+          {% csrf_token %}
+          <center>    
+          <h1>Add Repoter</h1>
+          </center>
+          <label>First Name: </label>
+          <input type="text" name="fname" class="form-control" placeholder="Enter reporter name">
+          <label>Last Name: </label>
+          <input type="text" name="lname" class="form-control" placeholder="Enter reporter SurName">
+          <label>Email: </label>
+          <input type="email" name="email" class="form-control" placeholder="Enter reporter email ex.abc@gmail.com">
+          <label>Phone Number: </label>
+          <input type="number" name="phone_no" class="form-control" placeholder="Enter reporter phone number">
+          <label>Profile Image: </label>
+          <input type="file" name="image1" class="form-control">
+          <label>User Name: </label>
+          <input type="text" name="username" class="form-control" placeholder="Enter reporter User Name" autocomplete="off">
+          <!-- <label>Images</label>
+          <input type="file" name="image1" class="form-control"><br/> -->
+          <label>Facebook: <i class="fa fa-facebook" aria-hidden="true"></i> </label>
+          <input type="text" name="facebook" class="form-control" placeholder="Enter Your facebook id">
+          <label>Instagram:<i class="fa fa-instagram" aria-hidden="true"></i> </label>
+          <input type="text" name="Instagram" class="form-control" placeholder="Enter Your Instagram Id">
+          <label>Twitter: <i class="fa fa-twitter" aria-hidden="true"></i></label>
+          <input type="text" name="twitter" class="form-control" placeholder="Enter Your twitter id">
+          <label>Proffesion: </label>
+          <input type="text" name="proffesion" class="form-control" placeholder="Enter Your proffesion as reporter,writter or ect." value="Reporter">
+          <label>Field Location: </label>
+          <input type="text" name="field_location" class="form-control" placeholder="Enter Your Field Location">
+          <label>Password: </label>
+          <input type="Password" name="password" class="form-control" autocomplete="off" placeholder="Enter password">
+          <label>Confirm Password: </label>
+          <input type="Password" name="cpassword" class="form-control" autocomplete="off" placeholder="Confirm your password">
+          <label>Address: </label>
+          <input type="address" name="address" class="form-control" placeholder="Enter reporter address">
+          <br>
+          <input type="submit" class="btn btn-success">
+          <button type="Reset" class="btn btn-danger">Reset</button><br>
+        </form>
+          </fieldset>
+        </form>
+      </div>
+      <script type="text/javascript">
+
+        window.onload = function() {
+
+          document.getElementById("asd").style.display = "none";
+
+        };
+
+        function asd(a) {
+
+          if (a == 1) {
+            document.getElementById("asd").style.display = "block";
+            document.getElementById("h1").className = "fa fa-chevron-down";
+          } else {
+            document.getElementById("asd").style.display = "none";
+            document.getElementById("h1").className = "fa fa-chevron-up";
+          }
+        }       
+      </script>
+    </div><!-- /.container -->
+    <table class="table table-bordered">
+      <caption>table title and/or explanatory text</caption>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone No</th>
+          <th>Email</th>
+          <th>Location</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>        
+          {% for x in media_reporter %}
+      <tr>
+        <td>{{x.id}}</td>
+        <td>{{x.user_id}}</td>        
+        <td>{{x.Address}}</td>        
+        <td>{{x.phone_no}}</td>        
+        <td>{{user.email}}</td>        
+        <td>{{x.Field_location}}</td>
+        <td><a href="/admin1/delete_media_data/{{x.id}}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+      </tr>       
+        {% endfor %}               
+      </tbody>
+    </table>
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+{% endblock %}

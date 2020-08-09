@@ -1,0 +1,20 @@
+{% extends 'news/layout/Master.html' %}
+{% load static %}
+{% block title %}Rss Feed page{% endblock %}
+{% block main %}
+<div class="content-wrapper" style="overflow: auto;"><!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid"> 
+			<div class="form-group">{% if data %}
+				News Title : <select name="News_Type" >
+					{% for x in data %}
+					<option value="{{x.title}}">{{x.title}}</option>
+					{% endfor %}
+					{% endif %}
+				</select>
+					{% for x in data %}<h3>{{x.title}}</h3>{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

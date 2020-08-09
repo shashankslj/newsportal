@@ -1,0 +1,230 @@
+{% extends 'news/layout/Master.html' %}
+{% load static %}
+{% block title %}News Portal{% endblock %}
+{% block main %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Dashboard</h1>
+        </div><!-- /.col -->
+        <!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+      <!--All new Starts-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{tottal_news}}</h3>
+                <p>Total News</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+              </div>
+              <a href="/news/total_News" class="small-box-footer">More info<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{Approved}}</h3>
+                <p>Approved News</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </div>
+              <a href="/news/Approved_News" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{Pending}}</h3>
+                <p>Pending</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-film" aria-hidden="true"></i>
+              </div>
+              <a href="/news/pending" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{tottal_comments}}</h3>
+                <p>Comments</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+              </div>
+              <a href="/news/data_comments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+
+        <!--All New Ends-->
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{latest}}</h3>
+                <p>Latest New</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div><hr>
+        {% if latest_tottal_news%}
+        <hr>
+          <h1>Tottal News</h1>
+          <hr>
+        <table class="table table-bordered">        
+        <thead>
+          <tr>
+            <th>id</th>       
+            <th>News Title</th>
+            <th>Content</th>
+            <th>News Category</th>
+            <th>Status</th>
+            <th>User Id</th>
+            <td>Comments</td>            
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in latest_tottal_news %}
+          <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.News_title}}</td>
+            <td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.content}}</span></td>
+            <td>{{x.news_category}}</td>
+            {% if x.status == "Approved" %}
+            <td class="bg-success">{{x.status}}</td>
+            {% else %}
+            <td class="bg-danger">{{x.status}}</td>
+            {% endif %}
+            <td>{{x.user_id}}</td>
+            {% if x.status == "Approved" %}
+            <td class="bg-secondary"><a href="/news/show_comment/{{x.id}}">Comments</a></td>
+            {% else %}
+            <td class="bg-danger"> <a href="/news/status">None </a></td>
+            {% endif %}            
+          </tr>       
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% elif data_Approved_news%}
+      <hr>
+          <h1>Approver News</h1>
+          <hr>
+      <table class="table table-bordered">        
+        <thead>
+          <tr>
+            <th>id</th>       
+            <th>News Title</th>
+            <th>Content</th>
+            <th>News Category</th>            
+            <th>User Id</th>
+            <td>Comments</td>            
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in data_Approved_news %}
+          <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.News_title}}</td>
+            <td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.content}}</span></td>
+            <td>{{x.news_category}}</td>            
+            <td>{{x.user_id}}</td>            
+            <td class="bg-secondary"><a href="/news/show_comment/{{x.id}}">Comments</a></td>                        
+          </tr>       
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% elif data_pending_news %}
+      <hr>
+          <h1>Pending News</h1>
+          <hr>      
+      <table class="table table-bordered">        
+        <thead>
+          <tr>
+            <th>id</th>       
+            <th>News Title</th>
+            <th>Content</th>
+            <th>News Category</th>            
+            <th>User Id</th>
+            <td>Comments</td>            
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in data_pending_news %}
+          <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.News_title}}</td>
+            <td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.content}}</span></td>
+            <td>{{x.news_category}}</td>            
+            <td>{{x.user_id}}</td>            
+            <td class="bg-secondary"><a href="/news/show_comment/{{x.id}}">Comments</a></td>                        
+          </tr>       
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% elif data_comments %}
+      <hr>
+          <h1>Comments</h1>
+          <hr>
+      <table class="table table-bordered">{% for x in news %}
+        <caption><a href="/news/show_comment/{{x.id}}">Back</a></caption>{% endfor %}
+        <thead>
+          <tr>
+            <th>id</th>       
+            <th>Comments</th>
+            <th>User id</th>
+            <th>News</th>
+            <th>Time</th>            
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in data_comments %}
+          <tr>
+            <td>{{x.id}}</td>
+            <td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.data}}</span></td>
+            <td>{{x.user_id}}</td>
+            <td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.news_id}}</span></td>
+            <td>{{x.updated_at}}</td>            
+          </tr>       
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}     
+    </div>
+  </section>
+</div>          
+<!-- /.row -->
+{% endblock %}

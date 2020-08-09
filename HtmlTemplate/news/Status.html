@@ -1,0 +1,217 @@
+ {% extends 'news/layout/Master.html' %}
+ {% load static %}
+ {% block title %}Profile Updater{% endblock %}
+ {% block main %}
+
+ {% if show_data %}
+ <!-- Css file name css_all -->
+ {% for x in show_data %}
+ <head>
+ 	<link rel="stylesheet" type="text/css" href="/static/css/css_all.css">
+ </head>
+ <div class="content-wrapper" style="overflow: auto;"><!-- Content Header (Page header) -->
+ 	<div class="content-header">
+ 		<div class="container-fluid">
+ 			<center><h1>News Data</h1></center><hr style="border: 1px solid;">
+ 			<header class="id"> 			
+ 				<center><h2>: News Title :</h2>
+ 				<h2>{{x.News_title}}</h2></center>
+ 			</header><br>
+ 			<section>
+ 				<article class="main_content">
+ 					<iframe src="https://www.youtube.com/embed/{{x.video}}"></iframe>
+ 				</article>
+
+ 				<nav class="img-container">
+ 					<img src="{{x.image}}">
+ 				</nav>
+ 			</section><br>
+
+ 			<footer>
+ 				<div class="container">     
+ 					<div class="row">
+ 						<div class="col-sm-5">
+ 							<h1 align="left"> Status : </h1><br>
+ 							<h1 align="left"> User Id : </h1><br>
+ 							<h1 align="left"> News Category : </h1>
+ 						</div>
+ 						<div class="col-sm-7">
+ 							<h1 align="left">{{x.status}}</h1><br>      
+ 							<h1 align="left">{{x.user_id}}</h1><br>
+ 							<h1 align="left">{{x.news_category}}</h1> 
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+
+ 		</div><br>
+ 		<div class="ftr">
+ 		</div>
+ 		<div class="container">	
+ 			<div class="row">
+ 				<div class="col-sm-5">
+
+ 				</div>
+ 				<div class="col-sm-5">
+ 					<h1>: Content :</h1>
+ 				</div>
+ 				</div>
+ 			<div class="row">
+ 			<div class="col-sm-12">
+ 				<textarea class="textareaa">
+ 					{{x.content}}
+ 				</textarea><br/>
+ 			</div>
+ 			</div>
+ 			<div class="row">
+ 				<div class="col-sm-11">
+ 					
+ 				</div>
+ 				<div class="col-sm-1">
+ 		<label><a href="/news"><i class="fa fa-home" aria-hidden="true"></i> Home</a></label>
+ 		</div>
+ 		</div>
+ 			</div>
+ 		</div>
+ 	</footer>
+
+ </div><!-- /.container-fluid -->        
+</div><!-- /.content-header -->   
+</div>
+{% endfor %}
+
+{% elif edit_data %}
+<div class="content-wrapper" style="overflow: auto;"><!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">      	
+			<center><h1 class="m-0 text-dark">Edit Your News</h1></center><hr>
+			{% for x in edit_data %}
+			<form action="/news/edit_data_stored/{{x.id}}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<label>News Title</label><br/>				        
+				<input type="text" name="news_title" value="{{x.News_title}}" class="form-control">
+				<label>Content</label>
+				<textarea name="content" class="form-control">{{x.content}}</textarea>
+				<label>Images :</label>
+				<img width="100" height="100" src="{{x.image}}">
+				<input type="file" name="image1" ><br/>			        
+				<label>Video</label>
+				<input type="text" name="video" class="form-control" value="{{x.video}}">
+				<label>Status</label>
+				<input type="text" name="status" class="form-control" value="{{x.status}}" readonly>
+				<label> News Type : </label>
+				<select name="News_Type" class="form-control">
+					{% for y in show_category_data %}
+					<option value="{{y.category_name}}" {% if x.news_category == y.category_name %} {{'selected'}} {% endif %}>{{y.category_name}}</option>
+					{% endfor %}
+				</select><br/>
+				<center>
+					<button type="submit" class="btn btn-primary" href="/news/edit_data_stored/{{x.id}}">Submit</button>
+						<a href="/news/status" class="btn btn-danger">Cancel</a>
+				</center>
+				{% endfor %}
+			</form>
+			<caption>
+				<a href="/news"><i class="fa fa-home" aria-hidden="true"></i> Home</a>				
+			</caption>
+		</div>
+	</div>
+</div>
+
+{% elif comment %}
+<div class="content-wrapper" style="overflow: auto;"><!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">      	
+			<center><h1 class="m-0 text-dark">Your Comments</h1></center>        
+		</div><!-- /.container-fluid -->        
+	</div><!-- /.content-header -->
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<table class="table table-bordered">{% for x in news %}
+				<caption><a href="/news/show_comment/{{x.id}}">Back</a></caption>{% endfor %}
+				<thead>
+					<tr>
+						<th>id</th>				
+						<th>Comments</th>
+						<th>User id</th>
+						<th>Time</th>
+						<th>Action button</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for x in comment %}
+					<tr>
+						<td>{{x.id}}</td>
+						<td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.data}}</span></td>
+						<td>{{x.user_id}}</td>
+						<td>{{x.updated_at}}</td>
+						<td>
+							<a href="/news/comment_data/{{x.id}}" class="btn btn-danger">Delete</a>							
+						</td>
+					</tr>				
+					{% endfor %}
+				</tbody>
+			</table>
+		</div> <!-- /.container-fluid -->
+	</section>
+</div>
+{% else %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="overflow: auto;"><!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">      	
+			<center><h1 class="m-0 text-dark">Your Status</h1></center>        
+		</div><!-- /.container-fluid -->        
+	</div><!-- /.content-header -->
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<table class="table table-bordered">
+				<caption><a href="/news"><i class="fa fa-home" aria-hidden="true"></i> Home</a></caption>
+				<thead>
+					<tr>
+						<th>id</th>				
+						<th>News Title</th>
+						<th>Content</th>
+						<th>News Category</th>
+						<th>Status</th>
+						<th>User Id</th>
+						<td>Comments</td>
+						<th>Action button</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for x in data1 %}
+					<tr>
+						<td>{{x.id}}</td>
+						<td>{{x.News_title}}</td>
+						<td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.content}}</span></td>
+						<td>{{x.news_category}}</td>
+						{% if x.status == "Approved" %}
+						<td class="bg-success">{{x.status}}</td>
+						{% else %}
+						<td class="bg-danger">{{x.status}}</td>
+						{% endif %}
+						<td>{{x.user_id}}</td>
+						{% if x.status == "Approved" %}
+						<td class="bg-secondary"><a href="/news/show_comment/{{x.id}}">Comments</a></td>
+						{% else %}
+						<td class="bg-danger"> <a href="/news/status">None </a></td>
+						{% endif %}
+						<td>
+							<div class="btn-group">
+								<a href="/news/show_data/{{x.id}}" class="btn btn-info">Show</a>
+								<a href="/news/edit_data/{{x.id}}" class="btn btn-warning">Edit</a>
+								<a href="/news/data_delete/{{x.id}}" class="btn btn-danger">Delete</a>							
+							</div>
+						</td>
+					</tr>				
+					{% endfor %}
+				</tbody>
+			</table>
+		</div> <!-- /.container-fluid -->
+	</section>
+</div>
+{% endif %}
+{% endblock %}

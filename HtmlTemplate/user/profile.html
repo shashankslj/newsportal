@@ -1,0 +1,234 @@
+{% extends 'user/layout/Master.html' %}
+{% load static %}
+{% block title %}{{user}} profile{% endblock %}
+{% block main %}
+{% if edit_profile %}
+<head>
+	<style type="text/css">
+		label{
+			color: black;		
+		}
+		p{
+			color: black;
+		}
+		hr{
+			border: 1px solid;
+			color: red;
+		}
+		i{
+			color: black;
+		}
+		input{
+			border: none; 
+			border-bottom: 2px solid;			
+		}
+		.profile-img img{
+			width: 70%;
+			height: 100%;
+		}
+		.profile-img .file {
+			position: relative;
+			overflow: hidden;
+			margin-top: -20%;
+			width: 70%;
+			border: none;
+			border-radius: 0;
+			font-size: 15px;
+			background: #212529b8;
+		}
+		.profile-img .file input {
+			position: absolute;
+			opacity: 0;
+			right: 0;
+			top: 0;
+		}
+	</style>
+</head>
+<div class="container">
+	<div class="row">
+		
+	</div>
+	<div class="row">
+		<div class="col-4">
+			
+		</div>
+		<div class="col-4">
+			<form method="POST" action="/user/edit_profile" enctype="multipart/form-data">		{% csrf_token %}
+				<div class="card">{% for x in edit_user %} {% for y in edit_profile %}
+					<div class="card-header bg-success"><center>
+						<div class="profile-img">							
+							<img src="/media/{{x.image}}" alt=""/>							
+							<div class="file btn btn-lg btn-primary">
+								Change Photo 
+								<input type="file" name="image1" value="{{x.image}}"/>
+							</div> 
+						</div>   
+					</div>
+					<div class="card-body">					
+						<center>
+							<b><label>Name</label></b><br>
+						</center>
+						<div class="row">
+							<div class="col-6">
+								<input type="text" name="lname" value="{{y.last_name}}" class="col-12">
+							</div>	
+							<div class="col-6">
+								<input type="text" name="fname" value="{{y.first_name}}" class="col-12">
+							</div>	
+						</div>
+						<hr>
+						<center>
+							<b><label>Phone Number </label></b><br>
+							<input type="number" name="phone_no" value="{{x.phone_no}}" class="col-10">
+						</center>
+						<hr>
+						<center>
+							<b><label>Address</label></b><br>
+							<input type="address" name="address" value="{{x.Address}}" class="col-11">
+						</center><hr>
+						<center>
+							<b><label>User id</label></b><br>
+							<p>{{x.user_id}}</p>
+						</center><hr>
+						<center>
+							<b><label>Email</label></b><br>
+							<input type="email" name="email" value="{{y.email}}" class="col-11">
+						</center><hr>						
+						<center>
+							<b><label>Social Media</label></b><br>
+							<div class="col-3">
+								<a target="_blank" href="https://www.facebook.com/{{x.facebook}}"><i class="fa fa-facebook-square fa-3x" aria-hidden="true" style="color: blue;"></i></a>
+							</div>
+							<div class="col-12">
+								<input type="text" name="facebook" value="{{x.facebook}}">
+							</div><br>
+							<div class="col-3">
+								<a target="_blank" href="https://www.instagram.com/{{x.instagram}}"><i class="fa fa-instagram fa-3x" aria-hidden="true" style="color: purple;"></i></a>
+							</div>
+							<div class="col-9">
+								<input type="text" name="instagram" value="{{x.instagram}}">
+							</div>
+							<div class="col-3">
+								<a target="_blank" href="https://www.twitter.com/{{x.twitter}}"><i class="fa fa-twitter-square fa-3x" aria-hidden="true" style="color: blue;"></i></a>
+							</div>
+							<div class="col-9">
+								<input type="text" name="twitter" value="{{x.twitter}}">
+							</div>
+							<p>To share our news please link your accounts</p>
+						</center><hr>
+					</div>
+					<div class="card-footer bg-primary">
+						<div class="row">
+							<div class="col-9">								
+								<button type="submit" class="btn bg-success" class="form-control"> submit</button>
+							</div>
+							<div class="col-1">								
+								<a href="/user/user_profile" class="btn btn-danger">Cancel</a>
+							</div>
+						</div>
+					</div>
+				</form>
+				</div>
+				{% endfor %} {% endfor %}	
+
+			</div>
+			<div class="col-4">
+
+			</div>
+		</div>
+		<div class="row">
+
+		</div>
+	</div>
+	{% else %}
+	<head>
+		<style type="text/css">
+			label{
+				color: black;		
+			}
+			p{
+				color: black;
+			}
+			hr{
+				border: 1px solid;
+				color: black;
+			}
+			i{
+				color: black;
+			}
+		</style>
+	</head>
+	<div class="container">
+		<div class="row">
+
+		</div>
+		<div class="row">
+			<div class="col-4">
+
+			</div>
+			<div class="col-4">			
+				<div class="card">{% for x in user_detail %} {% for y in profile %}
+					<div class="card-header bg-success"><center>						
+						<img src="/media/{{x.image}}" class="card-header"></center>						
+					</div>
+					<div class="card-body">					
+						<center>
+							<b><label>Name</label></b><br>
+							<p>{{y.last_name}} {{y.first_name}}</p>
+						</center><hr>
+						<center>
+							<b><label>Phone Number </label></b><br>
+							<p>{{x.phone_no}}</p>
+						</center><hr>
+						<center>
+							<b><label>Address</label></b><br>
+							<p>{{x.Address}}</p>
+						</center><hr>
+						<center>
+							<b><label>User id</label></b><br>
+							<p>{{x.user_id}}</p>
+						</center><hr>
+						<center>
+							<b><label>Email</label></b><br>
+							<p>{{y.email}}</p>
+						</center><hr>						
+						<center>
+							<b><label>Social Media</label></b><br>
+							<div class="row">
+								<div class="col-4">
+									<a target="_blank" href="https://www.facebook.com/{{x.facebook}}"><i class="fa fa-facebook-square fa-3x" aria-hidden="true" style="color: blue;"></i></a>
+								</div>
+								<div class="col-4">							
+									<a href="https://www.instagram.com/{{x.instagram}}" target="_blank">
+										<i class="fa fa-instagram fa-3x" aria-hidden="true" style="color: purple;"></i></a>
+									</div>
+									<div class="col-4">
+										<a target="_blank" href="https://twitter.com/{{x.twitter}}">
+											<i class="fa fa-twitter-square fa-3x" aria-hidden="true" style="color: blue;"></i></a>
+										</div></div><br>
+										<p>To share our news please link your accounts</p>
+										<p>{{not_user}}</p>
+									</center>
+								</div>
+								<div class="card-footer bg-primary">
+									<div class="row">
+										<div class="col-9">								
+											<a href="/user/edit_profile" class="btn btn-info">Home</a>
+										</div>
+										<div class="col-1">								
+											<a href="/user/edit_profile" class="btn btn-success">Edit</a>
+										</div>
+									</div>
+								</div>
+							</div>{% endfor %} {% endfor %}	
+						</div>
+						<div class="col-4">
+
+						</div>
+					</div>
+					<div class="row">
+
+					</div>
+				</div>
+				{% endif %}
+{% endblock %}

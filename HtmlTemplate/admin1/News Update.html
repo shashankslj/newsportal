@@ -1,0 +1,143 @@
+{% extends 'admin1/layout/Master.html' %}
+{% load static %}
+{% block title %}Admin Profile page{% endblock %}
+{% block main %}
+<div class="content-wrapper">
+  <div class="content-header">
+    <!-- Content Header (Page header) -->
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">News Update</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin1">Home</a></li>
+            <li class="breadcrumb-item active"><a href="/admin1/newsUpdate">News Update</a></li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row --><hr style="border: 1px solid;">
+    </div><!-- /.container-fluid -->
+  </div>  
+  <!-- /.content-header -->
+  <!-- Main content -->
+  {% if edit_news_data %}
+  <section class="content">
+    <div class="container-fluid">
+      {% for x in edit_news_data %}
+      <form action="/admin1/news_update/{{x.id}}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+          <div class="row">
+            <div class="col-2">  
+              <label>News Title :</label>               
+            </div>
+            <div class=" col-10">                    
+              <input type="text" name="news_title" value="{{x.News_title}}" class="form-control" readonly>
+            </div>
+          </div><br/>
+          <div class="row">
+            <div class="col-2">  
+              <label>Content</label>
+            </div>
+            <div class=" col-10">                    
+              <textarea name="content" class="form-control" readonly>{{x.content}}</textarea>
+            </div>
+          </div><br/>
+          <div class="row">
+            <div class="col-2">  
+              <label>Images :</label>
+            </div>
+            <div class=" col-10">                    
+              <img width="100" height="100" src="{{x.image}}"> <br/>
+            </div>
+          </div><br/>
+
+          <div class="row">
+            <div class="col-2">  
+              <label>Video</label>
+            </div>
+            <div class=" col-10">                    
+              <input type="text" name="video" class="form-control" value="{{x.video}}" readonly>
+            </div>
+          </div><br/>
+
+          <div class="row">
+            <div class="col-2">  
+              <label> News Type : </label>
+            </div>
+            <div class=" col-10">                    
+              <input type="text" name="news_category" class="form-control" value="{{x.news_category}}" readonly>
+            </div>
+          </div><br/>
+
+          <div class="row">
+            <div class="col-2">  
+              <label>Status</label>                
+            </div>
+            <div class=" col-10">                    
+              <input type="text" name="status" class="form-control" value="{{x.status}}" readonly>
+            </div>
+          </div><br/>
+          
+          <div class="row">
+            <div class="col-2">  
+              <label>Action :</label>
+            </div>
+            <div class=" col-10">                    
+              {% if x.status == "Approved" %} 
+              <button type="submit" class="btn btn-warning" href="/admin1/news_update/{{x.id}}">Pending</button>
+              {% else %}
+              <button type="submit" class="btn btn-primary" href="/admin1/news_update/{{x.id}}">Approve</button>
+              {% endif %}
+              <a href="/admin1/delete_content_data/{{x.id}}" class="btn btn-danger">Delete</a>
+            </div>
+          </div><br/>
+
+        </div>
+      </form>
+      {% endfor %}
+    </div><!-- /.container-fluid -->
+  </section>
+
+  {% else %}
+  <section class="content">
+    <div class="container-fluid">
+      <table class="table table-bordered">        
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>News Title</th>
+            <th>Content</th>
+            <th>Status</th>
+            <th>User</th>
+            <th>News Type</th>            
+            <th>Action</th><!-- view andd delete button -->
+          </tr>
+        </thead>
+        <tbody>          
+          {% for x in news %}
+          <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.News_title}}</td>
+            <td><span style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.content}}</span></td>
+            {% if x.status == "Approved" %}
+            <td class="bg-success">{{x.status}}</td>
+            {% else %}
+            <td class="bg-danger">{{x.status}}</td>
+            {% endif %}
+            <td>{{x.user_id}}</td>
+            <td>{{x.news_category}}</td>
+            <td>
+              <a href="/admin1/show_news_content_data/{{x.id}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div><!-- /.container-fluid -->
+  </section>
+  {% endif %}
+  <!-- /.content -->
+</div>
+{% endblock %}

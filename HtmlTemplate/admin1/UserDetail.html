@@ -1,0 +1,63 @@
+{% extends 'admin1/layout/Master.html' %}
+{% load static %}
+{% block title %}Admin Profile page{% endblock %}
+{% block main %}
+<div class="content-wrapper">
+  <div class="content-header">
+    <!-- Content Header (Page header) -->
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">User Details</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/admin1">Home</a></li>
+            <li class="breadcrumb-item active">User Details</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <table class="table table-bordered">
+        <caption>table title and/or explanatory text</caption>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email-id</th>        
+            <th>Phone No</th>                
+            <th>Action button</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in user  %}
+          <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.user_id}}</td>        
+            <td>{{x.Address}}</td>        
+            <td>{{x.user_id.email}}</td>        
+            <td>{{x.phone_no}}</td>            
+            <td>          
+              <a href="/admin1/delete_user_data/{{x.id}}" class="btn btn-danger">Delete <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+              {% if x.is_blocked == "block" %}
+              <a href="/admin1/block_user/{{x.id}}" class="btn btn-info">lock <i class="fa fa-lock" aria-hidden="true"></i></a>
+              {% else %}
+              <a href="/admin1/block_user/{{x.id}}" class="btn btn-warning">Unlock <i class="fa fa-unlock-alt" aria-hidden="true"></i></a>
+              {% endif %}
+            </td>
+          </tr>       
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- Small boxes (Stat box) --> 
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+{% endblock %}

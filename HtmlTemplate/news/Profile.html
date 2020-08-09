@@ -1,0 +1,250 @@
+{% extends 'news/layout/Master.html' %}
+{% load static %}
+{% block title %}Profile page{% endblock %}
+{% block main %}
+{% if edit_profile %}
+{% for x in edit_profile %}
+<div class="container-fluid">
+  <div class="content-wrapper">
+    <div class="content-header">
+      <link rel="stylesheet" href="{% static 'css/admin1_css/profile.css' %}">
+    </header>
+    <div class="container emp-profile">
+      <form method="POST" action="/news/edit_profile" enctype="multipart/form-data">
+        {% csrf_token  %}
+        <div class="row align-items-end">
+          <div class="col-md-4">
+            <div class="profile-img">
+              <img src="{{x.image}}" alt=""/>
+              <div class="file btn btn-lg btn-primary">
+                 Change Photo 
+                <input type="file" name="image1" value="{{x.image}}"/>                
+              </div>              
+            </div>
+          </div>          
+          <div class="col-md-6">
+            <div class="profile-head">              
+              <ul class="nav nav-tabs" id="myTab" role="tablist">             
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Edit</a>
+                </li>
+              </ul>
+            </div>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-work">
+              <label><u>Social accounts</u></label><br/>                            
+              <a target="_blank" href="{{x.facebook}}">
+                <i class="fa fa-facebook" aria-hidden="true" class="btn btn-fb"></i></a><br/>
+                <input type="text" id="bdr" name="facebook_profile" value="{{x.facebook}}"><br>
+                <a href="https://www.instagram.com/{{x.instagram}}/" target="_blank" ><i class="fa fa-instagram" aria-hidden="true"></i></a><br/>
+                <input type="text" name="instagram_profile" value="{{x.instagram}}"id="bdr"><br>
+                <a href="https://twitter.com/{{x.twitter}}"><i class="fa fa-twitter" aria-hidden="true"></i></a><br/>
+                <input type="text" value="{{x.twitter}}" name="twitter_profile" id="bdr"><br><br>
+                <label><u>SKILLS</u></label><br/>
+                <a href="">Strong writing skills</a><br/>
+                <a href="">presentation skills </a><br/>
+                <a href="">shoot and edit digital video</a><br/>
+                <a href="">Strong research skills</a><br/><br/>
+                <button type="submit" class="profile-edit-btn bg-success" class="form-control"> submit</button>
+                <a href="/news/user_profile" class="profile-edit-btn bg-danger" class="form-control"> Cancel</a>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="row" style="display: none;">
+                    <div class="col-md-6">
+                      <label>Id</label>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="number" name="id" value="{{x.id}}">
+                    </div>
+                    <div class="col-md-6">
+                      <label>User Id</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p style="color: black;">{{x.user_id}}</p>
+                      <input type="text" name="user" value="{{x.user_id}}" style="display: none;" id="bdr" class="col-md-2">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Name</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p><input type="text" name="lname" value="{{user.last_name}}" id="bdr" class="col-md-2"> <input type="text" name="fname" value="{{user.first_name}}" id="bdr" class="col-md-4"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p><input type="email" id="bdr" value="{{user.email}}" name="email"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Phone</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p><input type="number" id="bdr" value="{{x.phone_no}}" name="phone_no"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Profession</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p><input type="text" id="bdr" value="{{x.proffession}}" name="proffession"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Field Location</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p><input type="text" id="bdr" value="{{x.Field_location}}" name="Field_location"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Address</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p><textarea id="bdr" name="address">{{x.Address}}</textarea></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </form> 
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+{% for x in all_profile %}
+<div class="container-fluid">
+  <div class="content-wrapper">
+    <div class="content-header">
+      <link rel="stylesheet" href="{% static 'css/admin1_css/profile.css' %}">
+    </header>    
+    <div class="container emp-profile">
+      <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row align-items-end">
+          <div class="col-md-4">
+            <div class="profile-img">
+              <img src="{{x.image}}" alt=""/>              
+            </div><br>
+          </div>          
+          <div class="col-md-6">
+            <div class="profile-head">              
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                </li>
+              </ul>
+            </div>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-work">
+              <label><u>Social accounts</u></label><br/>                            
+              <a target="_blank" href="https://www.facebook.com/{{x.facebook}}">
+                <i class="fa fa-facebook" aria-hidden="true" class="btn btn-fb"></i></a><br/>             
+                <a href="https://www.instagram.com/{{x.instagram}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a><br/>             
+                <a target="_blank" href="https://twitter.com/{{x.twitter}}"><i class="fa fa-twitter" aria-hidden="true"></i></a><br/><br/>
+                <label><u>SKILLS</u></label><br/>
+                <a href="">Strong writing skills</a><br/>
+                <a href="">presentation skills </a><br/>
+                <a href="">shoot and edit digital video</a><br/>
+                <a href="">Strong research skills</a><br/><br/>           
+                <a href="/news/edit_profile" class="profile-edit-btn bg-primary" class="form-control"> Edit Your Profile </a>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="row">                    
+                    <div class="col-md-6">
+                      <label>User Id</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{x.user_id}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Name</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{user.last_name}} {{user.first_name}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{user.email}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Phone</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{x.phone_no}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Profession</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{x.proffession}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Field Location</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{x.Field_location}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Address</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{x.Address}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </form> 
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

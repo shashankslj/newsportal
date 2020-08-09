@@ -1,0 +1,71 @@
+{% extends 'user/layout/Master.html' %}
+{% block title %}Category Grid{% endblock %}
+{% block main %}
+<!-- ##### Breadcrumb Area Start ##### -->
+<div class="vizew-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/user"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                        <li class="breadcrumb-item"><a href="#"></a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="#">News Category wise</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Archive List Posts Area Start ##### -->
+<div class="vizew-archive-list-posts-area mb-80">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <!-- Archive Catagory & View Options -->
+                <div class="archive-catagory-view mb-50 d-flex align-items-center justify-content-between">
+                    <!-- Catagory -->
+                    <div class="archive-catagory">{% for x in category_single_news%}
+                        <h4>{{x.news_category}}</h4>
+                        {% endfor %}
+                    </div>
+                    <!-- View Options -->
+                    <div class="view-options">
+                        <a href="archive-list.html" class="active"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+                <!-- Single Post Area -->
+                {% for x in category_news %}
+                <div class="single-post-area style-2">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-6">
+                            <!-- Post Thumbnail -->
+                            <div class="post-thumbnail">
+                                <img src="{{x.image}}" alt="">      
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <!-- Post Content -->
+                            <div class="post-content mt-0">
+                                <a href="#" class="post-cata cata-sm cata-success">{{x.news_category}}</a>
+                                <a href="/user/latest_news/{{x.id}}" class="post-title mb-2">{{x.News_title}}</a>
+                                <div class="post-meta d-flex align-items-center mb-2">
+                                    <a href="#" class="post-author">By Jane</a>
+                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                    <a href="#" class="post-date">Sep 08, 2018</a>
+                                </div>
+                                <p class="mb-2"style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.content}}</p>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

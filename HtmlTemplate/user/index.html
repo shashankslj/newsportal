@@ -1,0 +1,539 @@
+{% extends 'user/layout/Master.html' %}
+{% load static %}
+{% block title %}BOOTNEWS{% endblock %}
+{% block main %}
+<!-- ##### Hero Area Start ##### -->
+<section class="hero--area section-padding-80">
+	<div class="container">
+		<div class="row no-gutters">
+			<div class="col-12 col-md-7 col-lg-8">
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="post-1" role="tabpanel" aria-labelledby="post-1-tab">
+						<!-- Single Feature Post -->
+						{% for x in news_video_data %}							
+						<div class="single-feature-post video-post bg-img">
+							<iframe src="https://www.youtube.com/embed/{{x.video}}" class="single-feature-post video-post active" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<!-- Post Content -->
+							<div class="post-content">
+								<a href="#" class="post-cata">{{x.news_category}}</a>
+								<a href="/user/latest_news/{{x.id}}" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex">
+									
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+
+						{% for x in news_show_data %}							
+						<div class="single-feature-post video-post bg-img">
+							<iframe src="https://www.youtube.com/embed/{{x.video}}" class="single-feature-post video-post active" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<!-- Post Content -->
+							<div class="post-content">
+								<a href="/user/category_grid/{{x.news_category}}" class="post-cata">{{x.news_category}}</a>
+								<a href="/user/latest_news/{{x.id}}" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex">
+									
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="col-12 col-md-5 col-lg-4">
+				<ul class="nav vizew-nav-tab" role="tablist">
+					{% for x in news_data %}
+					<li class="nav-item">
+						<a class="nav-link" id="post-1-tab" data-toggle="pill" href="#post-1" role="tab" aria-controls="post-1" aria-selected="true">
+							<!-- Single Blog Post -->										
+							<div class="single-blog-post style-2 d-flex align-items-center">
+								<div class="post-thumbnail">
+									<img src="{{x.image}}" href="/user/video_frame/{{x.id}}" alt="">
+								</div>
+								<div class="post-content">
+									<a href="/user/news_video/{{x.id}}"><h6 class="post-title">{{x.News_title}}</h6></a> 
+									<div class="post-meta d-flex justify-content-between">
+										
+									</div>
+								</div>
+							</div>										
+						</a>
+					</li>
+					{% endfor %}
+					{% for x in news_list_data %}
+					<li class="nav-item">
+						<a class="nav-link" id="post-1-tab" data-toggle="pill" href="#post-1" role="tab" aria-controls="post-1" aria-selected="true">
+							<!-- Single Blog Post -->										
+							<div class="single-blog-post style-2 d-flex align-items-center">
+								<div class="post-thumbnail">
+									<img src="{{x.image}}" href="/user/video_frame/{{x.id}}" alt="">
+								</div>
+								<div class="post-content">
+									<a href="/user/news_video/{{x.id}}"><h6 class="post-title">{{x.News_title}}</h6></a> 
+									<div class="post-meta d-flex justify-content-between">
+										
+									</div>
+								</div>
+							</div>										
+						</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Trending Posts Area Start ##### -->
+<section class="trending-posts-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<!-- Section Heading -->
+				<div class="section-heading">
+					<h4>News</h4>
+					<div class="line"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<!-- Single Blog Post -->
+			{% for x in latest_news_three %}
+			<div class="col-12 col-md-4">
+				<div class="single-post-area mb-80">
+					<!-- Post Thumbnail -->
+					<div class="post-thumbnail">
+						<img src="{{x.image}}" alt="">						
+					</div>
+
+					<!-- Post Content -->
+					<div class="post-content">
+						<a href="#" class="post-cata cata-sm cata-success">{{x.news_category}}</a>
+						<a href="/user/latest_news/{{x.id}}" class="post-title">{{x.News_title}}</a>
+						<div class="post-meta d-flex">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+
+	</div>
+</section>
+<!-- ##### Trending Posts Area End ##### -->
+
+<!-- ##### Vizew Post Area Start ##### -->
+<section class="vizew-post-area mb-50">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-7 col-lg-8">
+				<div class="all-posts-area">
+					<!-- Section Heading -->
+					<div class="section-heading style-2">
+						<h4>Featured News</h4>
+						<div class="line"></div>
+					</div>
+
+					<!-- Featured Post Slides -->
+					<div class="featured-post-slides owl-carousel mb-30">
+						<!-- Single Feature Post -->{% for x in latest_news_three %}
+						<div class="single-feature-post video-post bg-img" style="background-image: url({{x.image}});">
+							<!-- Play Button -->
+							<a href="video-post.html" class="btn play-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
+
+							<!-- Post Content -->
+							<div class="post-content">
+								<a href="/user/category_grid/{{x.news_category}}" class="post-cata">{{x.news_category}}</a>
+								<a href="/user/latest_news/{{x.id}}" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex">
+									
+								</div>
+							</div>						
+							
+						</div>
+{% endfor %}
+						<!-- Single Feature Post -->
+						
+					</div>
+
+					<div class="row">{% for x in latest_news_two %}
+						<!-- Single Blog Post -->
+						<div class="col-12 col-md-6">
+							<div class="single-post-area mb-80">
+								<!-- Post Thumbnail -->
+								<div class="post-thumbnail">
+									<img src="{{x.image}}" alt="">	
+								</div>
+
+								<!-- Post Content -->
+								<div class="post-content">
+									<a href="/user/category_grid/{{x.news_category}}" class="post-cata cata-sm cata-danger">{{x.news_category}}</a>
+									<a href="/user/latest_news/{{x.id}}" class="post-title">{{x.News_title}}</a>
+									<div class="post-meta d-flex">										
+									</div>
+								</div>
+							</div>
+						</div>					
+						{% endfor %}
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<!-- Section Heading -->
+							<div class="section-heading style-2">
+								<h4>Sports Videos</h4>
+								<div class="line"></div>
+							</div>
+							<!-- Sports Video Slides -->
+							<div class="sport-video-slides owl-carousel mb-50">
+								<!-- Single Blog Post -->{%for x in sports_video%}
+								<div class="single-post-area">
+									<!-- Post Thumbnail -->
+									<div class="post-thumbnail">
+										<img src="{{x.image}}" alt="">
+									</div>
+
+									<!-- Post Content -->
+									<div class="post-content">
+										<a href="#" class="post-cata cata-sm cata-success">{{x.news_category}}</a>
+										<a href="single-post.html" class="post-title">{{x.News_title}}</a>
+										<div class="post-meta d-flex">
+											
+										</div>
+									</div>
+								</div>
+										{% endfor %}
+								
+							</div>
+						</div>
+
+						<div class="col-12 col-lg-6">
+							<!-- Section Heading -->
+							<div class="section-heading style-2">
+								<h4>Business News</h4>
+								<div class="line"></div>
+							</div>
+
+							<!-- Business Video Slides -->
+							<div class="business-video-slides owl-carousel mb-50">
+								<!-- Single Blog Post -->{% for x in bussiness_video %}
+								<div class="single-post-area">
+									<!-- Post Thumbnail -->
+									<div class="post-thumbnail">
+										<img src="{{x.image}}" alt="">
+									</div>
+
+									<!-- Post Content -->
+									<div class="post-content">
+										<a href="#" class="post-cata cata-sm cata-primary">{{.news_category}}</a>
+										<a href="single-post.html" class="post-title">{{x.News_title}}</a>
+										<div class="post-meta d-flex">
+											
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+
+					<div class="row mb-30">{% for x in sports_video %}
+						<!-- Single Blog Post -->
+						<div class="col-12 col-lg-6">
+							<div class="single-blog-post style-3 d-flex mb-50">
+								<div class="post-thumbnail">
+									<img src="{{x.image}}" alt="">
+								</div>
+								<div class="post-content">
+									<a href="single-post.html" class="post-title">{{x.News_title}}</a>
+									<div class="post-meta d-flex justify-content-between">
+										
+									</div>
+								</div>
+							</div>
+						</div>{% endfor %}
+
+						<!-- Single Blog Post -->
+						
+
+						<!-- Single Blog Post -->
+						<div class="col-12 col-lg-6">
+							
+						</div>						
+					</div>
+
+					<!-- Section Heading -->
+					<div class="section-heading style-2">
+						<h4>Latest News</h4>
+						<div class="line"></div>
+					</div>
+
+					<!-- Featured Post Slides -->
+					<div class="featured-post-slides owl-carousel mb-30">
+						<!-- Single Feature Post -->
+						{% for x in news_data %}
+						<div class="single-feature-post video-post bg-img">
+							<!-- Play Button -->
+							<img src="{{x.image}}" class="single-feature-post video-post bg-img">
+
+							<!-- Post Content -->
+							<div class="post-content">
+								<a href="#" class="post-cata">{{x.news_category}}</a>
+								<a href="single-post.html" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex">
+									
+								</div>
+							</div>								
+						</div>
+						{% endfor %}
+
+						{% for x in news_list_data %}
+						<div class="single-feature-post video-post bg-img">
+							<!-- Play Button -->
+							<img src="{{x.image}}" class="single-feature-post video-post bg-img">
+
+							<!-- Post Content -->
+							<div class="post-content">
+								<a href="#" class="post-cata">{{x.news_category}}</a>
+								<a href="single-post.html" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex">
+									<a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 25</a>
+									<a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 25</a>
+									<a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 25</a>
+								</div>
+							</div>								
+						</div>
+						{% endfor %}							
+					</div>
+
+					<!-- Single Post Area -->
+					{% for x in news_data %}
+					<div class="single-post-area mb-30">
+						<div class="row align-items-center">
+							<div class="col-12 col-lg-6">
+								<div class="post-thumbnail">
+									<img src="{{x.image}}" alt="">
+								</div>
+							</div>
+							<div class="col-12 col-lg-6">
+								<div class="post-content mt-0">
+									<a href="#" class="post-cata cata-sm cata-danger">{{x.news_category}}</a>
+									<a href="single-post.html" class="post-title mb-2">{{x.News_title}}</a>
+									<div class="post-meta d-flex align-items-center mb-2">
+										<a href="#" class="post-author">By {{x.user_id}}</a>
+										<i class="fa fa-circle" aria-hidden="true"></i>
+										<a href="#" class="post-date">{{x.updated_at}}</a>
+									</div>
+									<p class="mb-2" style="display: inline-block; width: 100px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">{{x.content}}</p>
+									<div class="post-meta d-flex">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{%endfor%}
+
+					<!-- Single Post Area -->
+					<div class="single-post-area mb-30"></div>
+
+					<!-- Single Post Area -->
+					<div class="single-post-area mb-30">
+						<div class="row align-items-center">
+							<div class="col-12 col-lg-6"></div>
+							<div class="col-12 col-lg-6">
+								<!-- Post Content -->
+								<div class="post-content mt-0"></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="col-12 col-md-5 col-lg-4">
+				<div class="sidebar-area">
+
+					<!-- ***** Single Widget ***** -->
+					<div class="single-widget followers-widget mb-50">
+						<a target="_blank" href="https://www.facebook.com/Bootnews-104868687843043/?modal=admin_todo_tour" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i><span class="counter">10</span><span>Fan</span></a>
+						<a href="https://twitter.com/bootnews" class="twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i><span class="counter">5</span><span>Followers</span></a>
+						<a href="https://www.instagram.com/bootnews6/" target="_blank" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i><span class="counter">1</span><span>Followers</span></a>
+					</div>
+
+					<!-- ***** Single Widget ***** -->
+					<div class="single-widget latest-video-widget mb-50">
+						<!-- Section Heading -->
+						<div class="section-heading style-2 mb-30">
+							<h4>Latest Video</h4>
+							<div class="line"></div>
+						</div>
+
+						<!-- Single Blog Post -->
+						<div class="single-post-area mb-30">
+							{% if news_data %}
+							{% for x in news_show_data %}
+							<!-- Post Thumbnail -->
+							<div class="post-thumbnail">
+								<iframe src="https://www.youtube.com/embed/{{x.video}}"></iframe>								
+							</div>
+
+							<!-- Post Content -->
+							<div class="post-content">
+								<a href="/user/category_grid/{{x.news_category}}" class="post-cata cata-sm cata-success">{{x.news_category}}</a>
+								<a href="/user/latest_news/{{x.id}}" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex">
+									
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						{% else %}
+						{% for x in news_show_data %}
+						<!-- Single Blog Post -->
+						<div class="single-blog-post d-flex">
+							<div class="post-thumbnail">								
+								<img src="{{x.image}}" alt="user profile">
+							</div>
+							<div class="post-content">
+								<a href="single-post.html" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex justify-content-between">
+									<a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 29</a>
+									<a href="#"><i class="fa fa-eye" aria-hidden="true"></i> 08</a>
+									<a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 23</a>
+								</div>
+							</div>
+						</div>
+						{% endfor %}							
+						{% endif %}
+					</div>
+
+					<!-- ***** Single Widget ***** -->
+					<div class="single-widget add-widget mb-50">
+						{% if user.is_authenticated %}
+						{% for x in user_data %}						
+						<a href="/user/profile"><img src="/media/{{x.image}}" alt="user profile"></a>
+						{% endfor %}
+						{% else %}						
+						<a href="/user/login" data-toggle="modal" data-target="#myModal"><img src="/media/{{x.image}}" alt="user profile"></a>
+						{% endif %}
+					</div>
+
+					<!-- ***** Sidebar Widget ***** -->
+					<div class="single-widget youtube-channel-widget mb-50">
+						<!-- Section Heading -->
+						<div class="section-heading style-2 mb-30">
+							<h4>Search Other News Channels on google</h4>
+							<div class="line"></div>
+						</div>
+
+						<!-- Single YouTube Channel -->
+						<div class="single-youtube-channel d-flex align-items-center">
+							<div class="youtube-channel-thumbnail">
+								<img src="{% static 'image/bg-img/25.jpg' %}" alt="">
+							</div>
+							<div class="youtube-channel-content">
+								<a href="single-post.html" class="channel-title">Music Channel</a>
+								<a href="https://www.google.com/search?q=Music+News+Channels&rlz=1C1GCEA_enIN881IN881&oq=Music+News+Channels&aqs=chrome..69i57j0l5.6333j0j7&sourceid=chrome&ie=UTF-8" target="_blank" class="btn subscribe-btn">google search</a>
+							</div>
+						</div>
+
+						<!-- Single YouTube Channel -->
+						<div class="single-youtube-channel d-flex align-items-center">
+							<div class="youtube-channel-thumbnail">
+								<img src="{% static 'image/bg-img/26.jpg' %}" alt="">
+							</div>
+							<div class="youtube-channel-content">
+								<a href="https://www.google.com/search?rlz=1C1GCEA_enIN881IN881&sxsrf=ALeKk00azoH1lOP_fDrJSVOyXFUnQUAQRg%3A1588237277224&ei=3ZOqXsKaDZLz9QP83Z3ACQ&q=trending+news+channel&oq=trending+news+c&gs_lcp=CgZwc3ktYWIQAxgAMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADoECAAQRzoFCAAQkQI6BQgAEIMBUO0JWP4LYLMXaABwAngAgAHmAYgBwQOSAQMyLTKYAQCgAQGqAQdnd3Mtd2l6&sclient=psy-ab" target="_blank" class="channel-title">Trending Channel</a>
+								<a href="#" class="btn subscribe-btn">google search</a>
+							</div>
+						</div>
+
+						<!-- Single YouTube Channel -->
+						<div class="single-youtube-channel d-flex align-items-center">
+							<div class="youtube-channel-thumbnail">
+								<img src="{% static 'image/bg-img/27.jpg' %}" alt="">
+							</div>
+							<div class="youtube-channel-content">
+								<a href="https://www.google.com/search?rlz=1C1GCEA_enIN881IN881&sxsrf=ALeKk03dybEEiXcsc1ozuaztlXmWY3KIaA%3A1588237282336&ei=4pOqXt-LFIu_9QPx7ZOoDA&q=Traveling+news+channel&oq=Traveling+news+channel&gs_lcp=CgZwc3ktYWIQAzIICAAQCBAKEB46BAgAEEc6BggAEAcQHjoECAAQDToICAAQCBAHEB46CggAEAgQBxAKEB46BggAEA0QHjoICAAQCBANEB5Q-MgIWObhCGC35AhoAHACeACAAcQBiAGTDZIBBDAuMTCYAQCgAQGqAQdnd3Mtd2l6&sclient=psy-ab&ved=0ahUKEwjfhKH45I_pAhWLX30KHfH2BMUQ4dUDCAw&uact=5"
+								target="_blank" class="channel-title">Travel Channel</a>
+								<a href="#" class="btn subscribe-btn">Google search</a>
+							</div>
+						</div>
+
+						<!-- Single YouTube Channel -->
+						<div class="single-youtube-channel d-flex align-items-center">
+							<div class="youtube-channel-thumbnail">
+								<img src="{% static 'image/bg-img/28.jpg' %}" alt="">
+							</div>
+							<div class="youtube-channel-content">
+								<a href="https://www.google.com/search?rlz=1C1GCEA_enIN881IN881&sxsrf=ALeKk03fFaxfB1ACLpx75APjHkpy9HIH5A%3A1588237427274&ei=c5SqXvGoEKzB3LUP4b6G6AY&q=Sports+news+channel&oq=Sports+news+channel&gs_lcp=CgZwc3ktYWIQDDIHCAAQFBCHAjIECAAQHjIECAAQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIECAAQHjIECAAQHjIECAAQHjIECAAQHjoECAAQRzoICAAQBxAKEB5Q2o0CWLmeAmCW3QJoAHACeACAAfIBiAGQCZIBBTAuNi4xmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwixrq-95Y_pAhWsILcAHWGfAW0Q4dUDCAw" target="_blank" class="channel-title">Sport Channel</a>
+								<a href="#" class="btn subscribe-btn">google search</a>
+							</div>
+						</div>
+
+						<!-- Single YouTube Channel -->
+						<div class="single-youtube-channel d-flex align-items-center">
+							<div class="youtube-channel-thumbnail">
+								<img src="{% static 'image/bg-img/29.jpg' %}" alt="">
+							</div>
+							<div class="youtube-channel-content">
+								<a href="https://www.google.com/search?rlz=1C1GCEA_enIN881IN881&sxsrf=ALeKk0385QZnEYlhI7y_kty_cBLWIQLHHw%3A1588237473736&ei=oZSqXui9LKbdz7sPq6-viAE&q=Tv+show+news+channel&oq=Tv+show+news+channel&gs_lcp=CgZwc3ktYWIQAzIGCAAQChAeMgYIABAIEB4yBggAEAgQHjIGCAAQCBAeOgQIABBHOgYIABAHEB46BAgAEEM6CAgAEAcQChAeOgIIADoECAAQDToICAAQCBAHEB5Qp9sBWLftAWCy9AFoAHACeACAAY8CiAHDDJIBBTAuMy41mAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwioksPT5Y_pAhWm7nMBHavXCxEQ4dUDCAw&uact=5" target="_blank" class="channel-title">TV Show Channel</a>
+								<a href="#" class="btn subscribe-btn">google search</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- ***** Single Widget ***** -->
+					<div class="single-widget newsletter-widget mb-50">
+						<!-- Section Heading -->
+						<div class="section-heading style-2 mb-30">
+							<h4>Newsletter</h4>
+							<div class="line"></div>
+						</div>
+						<p>For any complain go to contact page and give us feed back.</p>
+						<!-- Newsletter Form -->
+						<div class="newsletter-form">
+							<form action="#" method="post">
+								<input type="email" name="nl-email" class="form-control mb-15" id="emailnl" placeholder="Enter your email">
+								<button type="submit" class="btn vizew-btn w-100">Subscribe</button>
+							</form>
+						</div>
+					</div>
+
+					<!-- ***** Single Widget ***** -->
+					<div class="single-widget mb-50">
+						<!-- Section Heading -->
+						<div class="section-heading style-2 mb-30">
+							<h4>Most Viewed News</h4>
+							<div class="line"></div>
+						</div>
+
+						<!-- Single Blog Post -->
+						{% for x in news_data %}
+						<div class="single-blog-post d-flex">
+							<div class="post-thumbnail">
+								<img src="{{x.image}}" alt="">
+							</div>
+							<div class="post-content">
+								<a href="single-post.html" class="post-title">{{x.News_title}}</a>
+								<div class="post-meta d-flex justify-content-between">
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- ##### Vizew Psot Area End ##### -->
+{% endblock %}
